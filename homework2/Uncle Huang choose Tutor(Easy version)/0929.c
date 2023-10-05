@@ -10,19 +10,19 @@ Node *createList(int n)
 {
     Node *tail = (Node*)malloc(sizeof(Node));
     tail->number = n;
-    tail->next = tail;
+    tail->next = tail; // !! 
     for(int i = n-1; i >= 1; --i){
     	Node *node = (Node*)malloc(sizeof(Node));
         node->number = i;
         node->next = tail->next;
         tail->next = node;
     }
-    return tail->next;
+    return tail->next; // !! 
 }
 
 void freeList(Node* head)
 {
-    while(head->next != head){
+    while(head->next != head){ // !! 
     	Node *tmp = head->next;
         head->next = tmp->next;
         free(tmp);
@@ -33,7 +33,7 @@ void freeList(Node* head)
 int getLen(Node* head){
 	Node*cur = head;
     int len = 1;
-    while(cur->next != head){
+    while(cur->next != head){ // !! 
         len++;
     	cur = cur->next;
     }
@@ -49,7 +49,7 @@ int solveJosephus(Node **head, int step)
         Node *tmp= (*head)->next;
         (*head)->next = tmp->next;
     	free(tmp);
-        (*head) = (*head)->next;
+        (*head) = (*head)->next; // !!
     }
     return (*head)->number;
 }

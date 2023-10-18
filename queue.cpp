@@ -13,9 +13,9 @@ typedef struct queue{
 
 char init_queue(QUEUE **queue); // 將隊列queue初始化{}
 char enqueue(QUEUE **queue, char e); // 將元素e入隊列queue{}
-char dequeue(QUEUE *queue, char *e); // 從隊列queue中取出一個元素e，並賦值給*e{}
-char display_queue(QUEUE *queue); // 列印隊列中所有元素{}
-char clear_queue(QUEUE *queue); // 清空隊列{} 
+char dequeue(QUEUE **queue, char *e); // 從隊列queue中取出一個元素e，並賦值給*e{}
+char display_queue(QUEUE **queue); // 列印隊列中所有元素{}
+char clear_queue(QUEUE **queue); // 清空隊列{} 
 
 char init_queue(QUEUE **queue) {
     if((*queue) == NULL){

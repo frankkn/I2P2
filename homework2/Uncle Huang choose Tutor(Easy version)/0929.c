@@ -49,7 +49,7 @@ int solveJosephus(Node **head, int step)
         Node *tmp= (*head)->next;
         (*head)->next = tmp->next;
     	free(tmp);
-        (*head) = (*head)->next; // !!
+        (*head) = (*head)->next; // !!!!!!!!!!!!!!!!!!!!!!!!!
     }
     return (*head)->number;
 }

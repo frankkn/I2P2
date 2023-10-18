@@ -7,7 +7,7 @@ void reverse(Node**, int, int);
 
 void insert(Node** head, char* color, int idx){
     Node *cur = (*head);
-    for(int i = 0; cur->next != NULL && i < idx; ++i){
+    for(int i = 0; cur->next != NULL && i < idx; ++i){ // cur->next != NULL !!
     	cur = cur->next;
     }
 	Node* node = (Node*)malloc(sizeof(Node));
@@ -18,7 +18,7 @@ void insert(Node** head, char* color, int idx){
 
 void erase1(Node** head, int idx){
 	Node *cur = (*head), *prev = NULL;
-    if(cur->next == NULL) return;
+    if(cur->next == NULL) return; // !!
     for(int i = 0; cur->next != NULL && i < idx; ++i){
     	prev = cur;
     	cur = cur->next;
@@ -30,7 +30,7 @@ void erase1(Node** head, int idx){
 
 void erase2(Node** head, char* color){
 	Node *cur = (*head), *prev = NULL;
-    while(cur){
+    while(cur){ // !!
     	if(!strcmp(cur->color, color)){
         	prev->next = cur->next;
             free(cur);

@@ -11,65 +11,74 @@ typedef struct queue{
     NODE *tail;
 } QUEUE;
 
-char init_queue(QUEUE *queue); // 將隊列queue初始化{}
-char enqueue(QUEUE *queue, char e); // 將元素e入隊列queue{}
+char init_queue(QUEUE **queue); // 將隊列queue初始化{}
+char enqueue(QUEUE **queue, char e); // 將元素e入隊列queue{}
 char dequeue(QUEUE *queue, char *e); // 從隊列queue中取出一個元素e，並賦值給*e{}
 char display_queue(QUEUE *queue); // 列印隊列中所有元素{}
 char clear_queue(QUEUE *queue); // 清空隊列{} 
 
-char init_queue(QUEUE *queue) {
-    if(queue == NULL){
+char init_queue(QUEUE **queue) {
+    if((*queue) == NULL){
+        (*queue) = (QUEUE*)malloc(sizeof(QUEUE));
+        (*queue)->head = NULL;
+        (*queue)->tail = NULL;
         return '0';  // Indicate failure
     }
 
-    queue->head = NULL;
-    queue->tail = NULL;
+    (*queue)->head = NULL;
+    (*queue)->tail = NULL;
 
     return '1';  // Indicate success
 }
 
-char enqueue(QUEUE *queue, char e) { // Push from back
-    NODE *node = (NODE *)malloc(sizeof(NODE));
+char enqueue(QUEUE **queue, char e) { // Push from back
+    if ((*queue) == NULL) {
+        return '0';  // Indicate failure
+    }
+
+    NODE *node = (NODE*)malloc(sizeof(NODE));
     node->e = e;
     node->next = NULL;
 
-    if(queue->tail == NULL){
-        queue->head = node;
-        queue->tail = node;
+    if((*queue)->tail == NULL){
+        (*queue)->head = node;
+        (*queue)->tail = node;
     }else{
-        queue->tail->next = node;
-        queue->tail = node;
+        (*queue)->tail->next = node;
+        (*queue)->tail = node;
     }
 
     return '1';  // Indicate success
 }
 
-char dequeue(QUEUE *queue, char *e) { // Pop from front
-    if(queue == NULL || queue->head == NULL){
+char dequeue(QUEUE **queue, char *e) { // Pop from front
+    if((*queue) == NULL || (*queue)->head == NULL){
         return '0';  // Indicate failure
     }
 
-    NODE *node = queue->head;
+    NODE *node = (*queue)->head;
     *e = node->e;
 
-    queue->head = queue->head->next;
+    (*queue)->head = (*queue)->head->next;
     free(node);
 
     // If the queue is now empty, update tail to NULL
-    if(queue->head == NULL){
-        queue->tail = NULL;
+    if((*queue)->head == NULL){
+        (*queue)->tail = NULL;
     }
 
     return '1';  // Indicate success
 }
 
-char display_queue(QUEUE *queue) {
-    if(queue == NULL || queue->head == NULL){
+char display_queue(QUEUE **queue) {
+    QUEUE *q = (*queue);
+
+    if(q == NULL || q->head == NULL){
         printf("Queue is empty.\n");
         return '0';
     }
 
-    NODE *cur = queue->head;
+    NODE *cur = q->head;
     printf("Queue elements: ");
     while(cur != NULL){
         printf("%c ", cur->e);
@@ -79,12 +88,12 @@ char display_queue(QUEUE *queue) {
     return '1';
 }
 
-char clear_queue(QUEUE *queue) {
-    if(queue == NULL){
+char clear_queue(QUEUE **queue) {
+    if((*queue) == NULL){
         return '0';  // Indicate failure
     }
 
-    NODE *cur = queue->head;
+    NODE *cur = (*queue)->head;
     NODE *tmp;
 
     while(cur != NULL){
@@ -93,12 +102,25 @@ char clear_queue(QUEUE *queue) {
         free(tmp);
     }
 
-    queue->head = NULL;
-    queue->tail = NULL;
+    (*queue)->head = NULL;
+    (*queue)->tail = NULL;
 
     return '1';  // Indicate success
 }
 
 int main(){
+    QUEUE *q = NULL;
+    init_queue(&q);
+    enqueue(&q, '4');
+    enqueue(&q, '8');
+    enqueue(&q, '7');
+    enqueue(&q, '6');
+    enqueue(&q, '3');
+    display_queue(&q);
+    char e;
+    dequeue(&q, &e);
+    display_queue(&q);
+    clear_queue(&q);
+    display_queue(&q);
     return 0;
 }

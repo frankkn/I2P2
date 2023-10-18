@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct node{
     char e;
@@ -36,8 +37,8 @@ char enqueue(QUEUE *queue, char e) { // Push from back
         queue->head = node;
         queue->tail = node;
     }else{
-        queue->tail->next = new_node;
-        queue->tail = new_node;
+        queue->tail->next = node;
+        queue->tail = node;
     }
 
     return '1';  // Indicate success
@@ -62,19 +63,20 @@ char dequeue(QUEUE *queue, char *e) { // Pop from front
     return '1';  // Indicate success
 }
 
-void display_queue(QUEUE *queue) {
+char display_queue(QUEUE *queue) {
     if(queue == NULL || queue->head == NULL){
         printf("Queue is empty.\n");
-        return;
+        return '0';
     }
 
     NODE *cur = queue->head;
     printf("Queue elements: ");
     while(cur != NULL){
-        printf("%c ", current->e);
+        printf("%c ", cur->e);
         cur = cur->next;
     }
     printf("\n");
+    return '1';
 }
 
 char clear_queue(QUEUE *queue) {
@@ -95,4 +97,8 @@ char clear_queue(QUEUE *queue) {
     queue->tail = NULL;
 
     return '1';  // Indicate success
+}
+
+int main(){
+    return 0;
 }

@@ -6,8 +6,6 @@ typedef struct _Node{
     struct _Node* r;
 } Node;
 
-int n;
-
 int search(int *in, int *post, int size){
 	int idx = 0;
     while(in[idx] != post[size-1]){
@@ -41,6 +39,7 @@ void freeTree(Node* root){
 }
 
 int main(){
+    int n;
 	int id = 1;
     while( scanf("%d", &n) != EOF ){
         int in[101], post[101];

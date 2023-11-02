@@ -44,7 +44,7 @@ int main(){
             int tmp;
             scanf("%d(/`A`)/ ~I__I", &tmp);
             a[i].idx = i+1;
-            a[i].data = tmp%2==0?fp(2, tmp/2):0;
+            a[i].data = tmp%2==0?fp(2, tmp/2):0; // !!
         }
         qsort(a, n, sizeof(a[0]), cmp);
         while(q--)

@@ -38,3 +38,31 @@ void freeTree(Node *root)
     freeTree(root->r);
     free(root);
 }
+
+int n;
+int main(void)
+{
+    /*
+    9
+    1 2 3 4 5 6 7 8 9
+    5 3 2 1 4 7 6 8 9
+    9
+    3 7 8 6 11 2 5 4 9
+    2 7 3 6 8 11 5 9 4
+    */
+    int id = 1;
+    while( ~scanf( "%d", &n ) )
+    {
+        int inorder[100], preorder[100];
+        for( int i = 0; i < n; i++ )
+            scanf( "%d", &inorder[i] );
+        for( int i = 0; i < n; i++ )
+            scanf( "%d", &preorder[i] );
+        Node *root = buildTree( inorder, preorder, 0, n-1 );
+        printf( "testcase%d: ", id++ );
+        showPostorder( root );
+        printf( "\n" );
+        freeTree( root );
+    }
+    return 0;
+}

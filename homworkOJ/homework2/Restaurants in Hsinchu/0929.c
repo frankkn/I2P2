@@ -46,7 +46,6 @@ Matrix fp(Matrix x, ll i){
     Matrix tmp = fp(x, i/2);
     if(i%2 == 1)	return matmul(matmul(tmp, tmp), x);
     else	return matmul(tmp, tmp);
-
 }
 
 int F(ll i){

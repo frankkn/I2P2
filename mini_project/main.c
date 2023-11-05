@@ -78,15 +78,16 @@ void AST_print(AST *head);
 char input[MAX_LENGTH];
 
 int main() {
-	while (fgets(input, MAX_LENGTH, stdin) != NULL) {
-		Token *content = lexer(input);
-		size_t len = token_list_to_arr(&content);
-		if (len == 0) continue;
-		AST *ast_root = parser(content, len);
-		semantic_check(ast_root);
-		codegen(ast_root);
-		free(content);
-		freeAST(ast_root);
+	while (fgets(input, MAX_LENGTH, stdin) != NULL) { // 逐行吃輸入(進input) &處理
+		Token *content = lexer(input); // 將input轉為Token linked list
+		size_t len = token_list_to_arr(&content); // 方便起見，linked list轉為array
+		if (len == 0) continue; // 空行不處理
+		AST *ast_root = parser(content, len); // 用Token array建構AST
+		semantic_check(ast_root); // 執行semantic check
+		codegen(ast_root); // 產生ASM code
+		// Optimization 在這裡做(也可以在parser裡面做 or codegen裡面做)
+		free(content); // 釋放記憶體: Token array
+		freeAST(ast_root); // 釋放記憶體: AST
 	}
 	return 0;
 }
@@ -174,9 +175,10 @@ size_t token_list_to_arr(Token **head) {
 	return res;
 }
 
-AST *parser(Token *arr, size_t len) {
+AST *parser(Token *arr, size_t len) { // 傳入先前建好的Token array跟array的長度
 	for (int i = 1; i < len; i++) {
 		// correctly identify "ADD" and "SUB"
+		// lexer無法辨別的PLUS/ADD跟MINUS/SUB，在parser中要做辨識
 		if (arr[i].kind == PLUS || arr[i].kind == MINUS) {
 			switch (arr[i - 1].kind) {
 				case PREINC:
@@ -207,12 +209,16 @@ AST *parse(Token *arr, int l, int r, GrammarState S) {
 		case EXPR:
 			return parse(arr, l, r, ASSIGN_EXPR);
 		case ASSIGN_EXPR:
+			// 1. 先嘗試走 ASSIGN_EXPR -> UNARY_EXPR ASSIGN ASSIGN_EXPR
+			// nxt 就是 "=" 的位置
 			if ((nxt = findNextSection(arr, l, r, condASSIGN)) != -1) {
+				// UNARY_EXPR ASSIGN ASSIGN_EXPR
 				now = new_AST(arr[nxt].kind, 0);
 				now->lhs = parse(arr, l, nxt - 1, UNARY_EXPR);
 				now->rhs = parse(arr, nxt + 1, r, ASSIGN_EXPR);
 				return now;
 			}
+			// 2. 當作ADD_EXPR往下走
 			return parse(arr, l, r, ADD_EXPR);
 		case ADD_EXPR:
 			if((nxt = findNextSection(arr, r, l, condADD)) != -1) {
@@ -225,6 +231,7 @@ AST *parse(Token *arr, int l, int r, GrammarState S) {
 		case MUL_EXPR:
 			// TODO: Implement MUL_EXPR.
 			// hint: Take ADD_EXPR as reference.
+			
 		case UNARY_EXPR:
 			// TODO: Implement UNARY_EXPR.
 			// hint: Take POSTFIX_EXPR as reference.
@@ -261,6 +268,7 @@ AST *new_AST(Kind kind, int val) {
 	return res;
 }
 
+// 找下一個token的位置，且符合cond()的條件。若找不到，回傳-1。搜尋方向由start到end。
 int findNextSection(Token *arr, int start, int end, int (*cond)(Kind)) {
 	int par = 0;
 	int d = (start < end) ? 1 : -1;
@@ -284,6 +292,7 @@ int condMUL(Kind kind) {
 	return kind == MUL || kind == DIV || kind == REM;
 }
 
+// 如果是右括號，回傳1
 int condRPAR(Kind kind) {
 	return kind == RPAR;
 }

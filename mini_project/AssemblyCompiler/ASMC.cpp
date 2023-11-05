@@ -221,6 +221,7 @@ int cycle(const vector<ASM> &list)
 }
 
 // ./ASMC x y z
+// ctrl+D to end input
 int main(int argc, char **argv)
 {
     vector<int> init;

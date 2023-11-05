@@ -29,6 +29,7 @@ typedef struct ASTUnit {
 /// utility interfaces
 
 // err marco should be used when a expression error occurs.
+// 輸入的expression不符合grammar / 無法通過semantic check 時呼叫
 #define err(x) {\
 	puts("Compile Error!");\
 	if(DEBUG) {\
@@ -186,7 +187,7 @@ AST *parser(Token *arr, size_t len) { // 傳入先前建好的Token array跟arra
 				case IDENTIFIER:
 				case CONSTANT:
 				case RPAR:
-					arr[i].kind = arr[i].kind - PLUS + ADD;
+					arr[i].kind = arr[i].kind - PLUS + ADD; // 把PLUS轉成ADD，把MINUS轉成SUB
 				default: break;
 			}
 		}
@@ -218,8 +219,7 @@ AST *parse(Token *arr, int l, int r, GrammarState S) {
 				now->rhs = parse(arr, nxt + 1, r, ASSIGN_EXPR);
 				return now;
 			}
-			// 2. 當作ADD_EXPR往下走
-			return parse(arr, l, r, ADD_EXPR);
+			return parse(arr, l, r, ADD_EXPR); // 2. 當作ADD_EXPR往下走
 		case ADD_EXPR:
 			if((nxt = findNextSection(arr, r, l, condADD)) != -1) {
 				now = new_AST(arr[nxt].kind, 0);
@@ -231,13 +231,29 @@ AST *parse(Token *arr, int l, int r, GrammarState S) {
 		case MUL_EXPR:
 			// TODO: Implement MUL_EXPR.
 			// hint: Take ADD_EXPR as reference.
-			
+			if((nxt = findNextSection(arr, r, l, condMUL)) != -1) {
+				now = new_AST(arr[nxt].kind, 0);
+				now->lhs = parse(arr, l, nxt - 1, MUL_EXPR);
+				now->rhs = parse(arr, nxt + 1, r, UNARY_EXPR);
+				return now;
+			}
+			return parse(arr, l, r, UNARY_EXPR);
 		case UNARY_EXPR:
 			// TODO: Implement UNARY_EXPR.
 			// hint: Take POSTFIX_EXPR as reference.
+
+			// 判斷是否為 "PREINC/PREDEC/PLUS/MINUS + UNARY_EXPR"，
+			// 若是，則建立一個新的AST，並將其mid指向parse(arr, l + 1, r, UNARY_EXPR)
+			if (arr[l].kind == PREINC || arr[l].kind == PREDEC || arr[l].kind == PLUS || arr[l].kind == MINUS) {
+				now = new_AST(arr[l].kind, 0);
+				now->mid = parse(arr, l + 1, r, UNARY_EXPR);
+				return now;
+			}
+			return parse(arr, l, r, PRI_EXPR);
 		case POSTFIX_EXPR:
 			if (arr[r].kind == PREINC || arr[r].kind == PREDEC) {
 				// translate "PREINC", "PREDEC" into "POSTINC", "POSTDEC"
+				// 下面也涵蓋了 PREDEC 的情況
 				now = new_AST(arr[r].kind - PREINC + POSTINC, 0);
 				now->mid = parse(arr, l, r - 1, POSTFIX_EXPR);
 				return now;
@@ -310,7 +326,17 @@ void semantic_check(AST *now) {
 	// TODO: Implement the remaining semantic_check code.
 	// hint: Follow the instruction above and ASSIGN-part code to implement.
 	// hint: Semantic of each node needs to be checked recursively (from the current node to lhs/mid/rhs node).
+	if (now->kind == PREINC || now->kind == PREDEC || now->kind == POSTINC || now->kind == POSTDEC) {
+		AST *tmp = now->mid; // now->mid is the operand of INC/DEC
+		while (tmp->kind == LPAR) tmp = tmp->mid; // skip parentheses
+		if (tmp->kind != IDENTIFIER) // check if the operand is an identifier
+			err("Operand of INC/DEC must be an identifier or identifier with one or more parentheses.");
+		semantic_check(now->lhs);
+		semantic_check(now->mid);
+		semantic_check(now->rhs);
+	}
 }
+
 
 void codegen(AST *root) {
 	// TODO: Implement your codegen in your own way.

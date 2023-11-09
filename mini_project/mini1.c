@@ -371,18 +371,16 @@ void reset_reg(){
 	}
 }
 
-int cur_mem = -1;
 int cur = -1;
+int cur_mem = -1;
 
 void codegen(AST *root) {
 	// TODO: Implement your codegen in your own way.
 	// You may modify the function parameter or the return type, even the whole structure as you wish.
-	
+    if(root == NULL)    return;
 	reset_reg();
 
-    if(root == NULL)    return;
-
-    switch(root->kind){
+    switch (root->kind) {
 		// 1. LEAF NODE
 		case IDENTIFIER:
             int mem_addr = (root->val - 'x') * 4; // 變數x的記憶體位置為0，變數y的記憶體位置為4，變數z的記憶體位置為8
@@ -463,7 +461,7 @@ void codegen(AST *root) {
             break;
         case RPAR:
             break;
-			
+
         case PLUS:
             codegen(root->mid); // 將變數值載入暫存器
             break;

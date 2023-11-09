@@ -371,7 +371,7 @@ void reset_reg(){
 	}
 }
 
-int tmp_mem = -1;
+int cur_mem = -1;
 int cur = -1;
 
 void codegen(AST *root) {
@@ -385,18 +385,19 @@ void codegen(AST *root) {
     switch(root->kind){
 		// 1. LEAF NODE
 		case IDENTIFIER:
-            int mem = (root->val - 'x') * 4; // 變數x的記憶體位置為0，變數y的記憶體位置為4，變數z的記憶體位置為8
-			printf("load r%d [%d]\n", reg[++cur], mem);
-			tmp_mem = mem; // 記錄變數的記憶體位置
+            int mem_addr = (root->val - 'x') * 4; // 變數x的記憶體位置為0，變數y的記憶體位置為4，變數z的記憶體位置為8
+			printf("load r%d [%d]\n", reg[++cur], mem_addr);
+			cur_mem = mem; // 記錄變數的記憶體位置
             break;
         case CONSTANT:
             printf("add r%d 0 %d\n", reg[++cur], root->val);
             break;
+
 		// 2. Intermediate Node
         case ASSIGN:
             codegen(root->rhs);
             codegen(root->lhs);
-            printf("store [%d] r%d\n", tmp_mem, reg[--cur]); // 將暫存器的值(rhs)存回記憶體
+            printf("store [%d] r%d\n", cur_mem, reg[--cur]); // 將暫存器的值(rhs)存回記憶體
             break;
 
         case ADD: // 5+7
@@ -433,33 +434,36 @@ void codegen(AST *root) {
             printf("rem r%d r%d r%d\n", reg[cur-1], reg[cur-1], reg[cur]);
 			--cur;
             break;
+
         case PREINC:
             codegen(root->mid); // root->mid is the operand of INC/DEC (操作對象通常是一個變數)
             printf("add r%d r%d 1\n", reg[cur], reg[cur]);
-            printf("store [%d] r%d\n", tmp_mem, reg[cur]);
+            printf("store [%d] r%d\n", cur_mem, reg[cur]);
             break;
         case PREDEC:
             codegen(root->mid);
             printf("sub r%d r%d 1\n", reg[cur], reg[cur]); // 先將變數值減1
-            printf("store [%d] r%d\n", tmp_mem, reg[cur]); // 再將減1後的值存回記憶體
+            printf("store [%d] r%d\n", cur_mem, reg[cur]); // 再將減1後的值存回記憶體
             break;
         case POSTINC:
             codegen(root->mid);
             printf("add r%d r%d 1\n", reg[cur], reg[cur]); // 先將變數值加1
-            printf("store [%d] r%d\n", tmp_mem, reg[cur]); // 再將加1後的值存回記憶體
+            printf("store [%d] r%d\n", cur_mem, reg[cur]); // 再將加1後的值存回記憶體
             printf("sub r%d r%d 1\n", reg[cur], reg[cur]); // 最後將變數值減1
             break;
         case POSTDEC:
             codegen(root->mid);
             printf("sub r%d r%d 1\n", reg[cur], reg[cur]); // 先將變數值減1
-            printf("store [%d] r%d\n", tmp_mem, reg[cur]); // 再將減1後的值存回記憶體
+            printf("store [%d] r%d\n", cur_mem, reg[cur]); // 再將減1後的值存回記憶體
             printf("add r%d r%d 1\n", reg[cur], reg[cur]); // 最後將變數值加1
             break;
+
         case LPAR:
             codegen(root->mid);
             break;
         case RPAR:
             break;
+			
         case PLUS:
             codegen(root->mid); // 將變數值載入暫存器
             break;

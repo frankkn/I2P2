@@ -89,9 +89,8 @@ int main() {
 		AST *ast_root = parser(content, len); // 用Token array建構AST
 		// AST_print(ast_root);
 		semantic_check(ast_root); // 執行semantic check
-
 		simplify_AST(ast_root); // 優化AST
-
+		// AST_print(ast_root);
 		codegen(ast_root); // 產生ASM code
 		// Optimization 在這裡做(也可以在parser裡面做 or codegen裡面做)
 		free(content); // 釋放記憶體: Token array
@@ -256,7 +255,7 @@ AST *parse(Token *arr, int l, int r, GrammarState S) {
 				now->mid = parse(arr, l + 1, r, UNARY_EXPR);
 				return now;
 			}
-			return parse(arr, l, r, PRI_EXPR);
+			return parse(arr, l, r, POSTFIX_EXPR);
 		case POSTFIX_EXPR:
 			if (arr[r].kind == PREINC || arr[r].kind == PREDEC) {
 				// translate "PREINC", "PREDEC" into "POSTINC", "POSTDEC"
@@ -338,10 +337,13 @@ void semantic_check(AST *now) {
 		while (tmp->kind == LPAR) tmp = tmp->mid; // skip parentheses
 		if (tmp->kind != IDENTIFIER) // check if the operand is an identifier
 			err("Operand of INC/DEC must be an identifier or identifier with one or more parentheses.");
-		semantic_check(now->lhs);
-		semantic_check(now->mid);
-		semantic_check(now->rhs);
+		// semantic_check(now->lhs);
+		// semantic_check(now->mid);
+		// semantic_check(now->rhs);
 	}
+	semantic_check(now->lhs);
+	semantic_check(now->mid);
+	semantic_check(now->rhs);
 }
 
 AST *simplify_AST(AST *ast_root) {
@@ -351,8 +353,8 @@ AST *simplify_AST(AST *ast_root) {
 	ast_root->mid = simplify_AST(ast_root->mid);
 	ast_root->rhs = simplify_AST(ast_root->rhs);
 
-	if (ast_root->kind == PLUS || ast_root->kind == LPAR) {
-		if (ast_root->mid == NULL) {
+	if (ast_root->kind == PLUS || ast_root->kind == LPAR) { // +x -> x
+		if (ast_root->mid == NULL) { 
 			err("Expected expression before \'+\' or \'(\'")
 		}
 		AST *tmp = ast_root;
@@ -385,7 +387,7 @@ void codegen(AST *root) {
 		case IDENTIFIER:
             int mem_addr = (root->val - 'x') * 4; // 變數x的記憶體位置為0，變數y的記憶體位置為4，變數z的記憶體位置為8
 			printf("load r%d [%d]\n", reg[++cur], mem_addr);
-			cur_mem = mem; // 記錄變數的記憶體位置
+			cur_mem = mem_addr; // 記錄變數的記憶體位置
             break;
         case CONSTANT:
             printf("add r%d 0 %d\n", reg[++cur], root->val);
@@ -443,6 +445,8 @@ void codegen(AST *root) {
             printf("sub r%d r%d 1\n", reg[cur], reg[cur]); // 先將變數值減1
             printf("store [%d] r%d\n", cur_mem, reg[cur]); // 再將減1後的值存回記憶體
             break;
+
+		// [BUG FIXED]: x=y=z++會出錯
         case POSTINC:
             codegen(root->mid);
             printf("add r%d r%d 1\n", reg[cur], reg[cur]); // 先將變數值加1

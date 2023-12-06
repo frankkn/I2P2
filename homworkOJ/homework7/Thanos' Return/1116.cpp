@@ -24,10 +24,10 @@ Matrix Matrix::operator+ (const Matrix &x) const{
 
 //Perform "multiplication" operation, then return the result. Note that this function is declared with friend.
 Matrix operator* (const Matrix &x, const Matrix &y){
-    Matrix res(x.row, y.col);
+    Matrix res(x.row, y.col); // !!!
     for(int i=0; i<x.row; i++) for(int j=0; j<x.col; j++) for(int k=0; k<y.col; k++)
     {
-        res[i][k] += ((x[i][j] * y[j][k]) % MOD + MOD) % MOD;
+        res[i][k] += ((x[i][j] * y[j][k]) % MOD + MOD) % MOD; // !!!
         res[i][k] = (res[i][k] % MOD + MOD) % MOD;
     }
     return res;

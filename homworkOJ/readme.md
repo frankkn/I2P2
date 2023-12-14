@@ -18,3 +18,6 @@ Home page: [IPHTCOJ](http://140.114.85.195/)
 |5           |in+post=>pre                             |
 |6           |2D-DP/upper_bound&lower_bound            |
 |7           |set/constructor/dfs                      |
+|8           |class constructor                        |
+|9           |bfs/dp                                   |
+|10          |map/prefix_sum/dfs                       |

@@ -1,0 +1,32 @@
+1. Explain the following terms and their usages
+(a) compiler
+一種軟體工具，用於將高階程式語言轉換成低階程式語言。
+(b) assembler
+將組合語言轉換為機器碼。
+(c) linker
+將多個目標文件或模塊結合成一個可執行檔
+(d) loader
+將執行檔載入到記憶體中，使其可被執行。
+
+2. What are the stages a computer program undergoes, from initial creation to
+deployment and execution?
+
+1) Edit time
+2) Compile time
+3) Link time
+4) Distribution time
+5) Installation time
+6) Load time
+7) Run time
+
+3. Explain the purposes of the three steps “lexical analysis”, “parsing process” and
+“code generation” in the compilation process.
+
+Sol:
+1. lexical analysis:
+    * recognizing which strings of symbols from the source program represent a single entity called token
+    * identifying whether they are numeric values, words, arithmetic operators, and so on.
+2. parsing process:
+    * group tokens into statements based on a set of rules, collectively called a grammar
+3. code generation:
+    * constructing the machine-language instructions to implement the statements recognized by the parser and represented as syntax trees

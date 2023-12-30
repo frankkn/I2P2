@@ -21,3 +21,4 @@ Home page: [IPHTCOJ](http://140.114.85.195/)
 |8           |class constructor                        |
 |9           |bfs/dp                                   |
 |10          |map/prefix_sum/dfs                       |
+|11          |dp/dfs/stl/prefix_sum                    |

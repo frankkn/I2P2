@@ -9,13 +9,14 @@ int visited[2001];
 int n;
 void dfs(int i){
 	visited[i] = 1;
-    for(int j = 0; j < n; ++j){
-    	if(visited[j]) continue;
-		for(int k = 0; k < 26; ++k){
-            if(edges[i][k] && edges[j][k]){
-            	dfs(j);
-                break;
+    for(int j = 0; j < 26; ++j){
+    	if(edges[i][j]){ // 確定當前的i跟字母有連
+            for(int k = 0; k < n; ++k){
+            	if(!visited[k] && edges[k][j]){ // 確定k沒有被走過，且k跟字母有連
+                	dfs(k);
+                }
             }
+        
         }
     }
 }

@@ -20,7 +20,7 @@ int main(){
         for(int i = 1; i <= n; ++i){
         	dp[i][1] = pre[i];
         }
-        // iterate dp[i][j]
+        // iterate dp[i][j]:前i個數字分成j組的最小最大值
         for(int i = 2; i <= n; ++i){
         	for(int j = 2; j <= min(i,k); ++j){
                 dp[i][j] = INF;

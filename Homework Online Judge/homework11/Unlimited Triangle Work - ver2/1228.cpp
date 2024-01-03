@@ -25,7 +25,7 @@ int main(){
         // 總和條件1&2成立的z: min(D, i-1) - max(C, i*2/3+1) + 1
 
         for(int i = A+B; i <= B+C; ++i){
-        	ll num_of_z = min(D, i-1) - max(C, i*2/3+1)+1;
+        	ll num_of_z = min(D, i-1) - max(C, i*2/3+1)+1; // 先*2再/3，不能寫2/3*i+1
             if(num_of_z < 0) continue;
             ans += F[i] * num_of_z;
         }

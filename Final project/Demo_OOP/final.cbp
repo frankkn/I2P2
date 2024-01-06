@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="final" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/final" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="../final_project_package/final_project_package/allegro/lib/liballegro_monolith-debug.dll.a" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/final" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="../final_project_package/final_project_package/allegro/lib/liballegro_monolith.dll.a" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../final_project_package/final_project_package/allegro/include" />
+		</Compiler>
+		<Unit filename="about.cpp" />
+		<Unit filename="about.h" />
+		<Unit filename="algif5/Makefile" />
+		<Unit filename="algif5/algif.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="algif5/algif.h" />
+		<Unit filename="algif5/bitmap.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="algif5/gif.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="algif5/index.html" />
+		<Unit filename="algif5/lzw.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="background.cpp" />
+		<Unit filename="background.h" />
+		<Unit filename="buff.cpp" />
+		<Unit filename="buff.h" />
+		<Unit filename="bullet.cpp" />
+		<Unit filename="bullet.h" />
+		<Unit filename="constants.cpp" />
+		<Unit filename="constants.h" />
+		<Unit filename="enemy.cpp" />
+		<Unit filename="enemy.h" />
+		<Unit filename="explosion.cpp" />
+		<Unit filename="explosion.h" />
+		<Unit filename="game.cpp" />
+		<Unit filename="game.h" />
+		<Unit filename="game_timer.cpp" />
+		<Unit filename="game_timer.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
+		<Unit filename="player.cpp" />
+		<Unit filename="player.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

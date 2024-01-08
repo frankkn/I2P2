@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="../final_project_package/final_project_package/allegro/include" />
 				</Compiler>
 				<Linker>
 					<Add library="../final_project_package/final_project_package/allegro/lib/liballegro_monolith-debug.dll.a" />
@@ -71,6 +72,8 @@
 		<Unit filename="game_timer.cpp" />
 		<Unit filename="game_timer.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="manage_file.cpp" />
+		<Unit filename="manage_file.h" />
 		<Unit filename="menu.cpp" />
 		<Unit filename="menu.h" />
 		<Unit filename="player.cpp" />

@@ -14,10 +14,12 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_color.h>
+//#include <allegro5/allegro_file.h>
 #include "algif5/algif.h"
 
 #include <iostream>
 #include <vector>
+#include <sstream>
 using namespace std;
 
 extern const int GAME_WIDTH;
@@ -53,5 +55,7 @@ extern int buffRadius;
 extern int buffType;
 
 extern bool key_state[ALLEGRO_KEY_MAX];
+
+extern ALLEGRO_FILE *file;
 
 #endif

@@ -60,6 +60,7 @@ int main() {
     Explosion *exp = new Explosion(0,0,0);
     exp->loadGIF();
 
+
     while (running) {
         if (redraw) {
             if (window == 1) {

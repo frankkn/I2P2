@@ -10,6 +10,7 @@
 #include "game_timer.h"
 #include "buff.h"
 #include "bullet.h"
+#include "manage_file.h"
 
 class Game {
     private:
@@ -18,6 +19,9 @@ class Game {
 
         Enemy *enemyImages;
         Bullet *bulletImages;
+
+        Manage_file *manage_file;
+        Game_timer *game_timer;
 
         std::vector<Enemy *> enemies;
         std::vector<Explosion *> explosions;

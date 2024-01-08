@@ -6,8 +6,10 @@ Game::Game() {
 void Game::init() {
     background = new Background("./image/stars.jpg");
     player = new Player();
+    manage_file = new Manage_file();
+    game_timer = new Game_timer();
 
-    curLevel = 6;
+    curLevel = 1;
     levelTimer = al_create_timer(3); // level delay for 3 seconds
     al_start_timer(levelTimer);
     eventQueue = al_create_event_queue();
@@ -17,13 +19,13 @@ void Game::init() {
     al_init_ttf_addon();
     font = al_load_ttf_font("font/pirulen.ttf", 50, 0);
 
-    BGM = al_load_audio_stream("music/bgm2.mp3", 2, 2048);
+    BGM = al_load_audio_stream("music/playing_music.mp3", 2, 2048);
     al_set_audio_stream_playmode(BGM, ALLEGRO_PLAYMODE_LOOP);
     al_set_audio_stream_playing(BGM, true);
     al_attach_audio_stream_to_mixer(BGM, al_get_default_mixer());
 
     levelPassMusic = al_load_audio_stream("music/level-pass.mp3", 2, 2048);
-    endingMusic = al_load_audio_stream("music/ending.mp3", 2, 2048);
+    endingMusic = al_load_audio_stream("music/ending_music.mp3", 2, 2048);
 
     playerGetHitSound = al_load_sample("music/playerGetHitSound.mp3");
     enemyGetHitSound = al_load_sample("music/enemyGetHitSound.mp3");
@@ -33,7 +35,7 @@ void Game::init() {
     gameOver = false;
     gamePass = false;
 
-    game_timer_init();
+    //game_timer_init();
     buff_init();
 
     enemyImages->loadImages();
@@ -331,12 +333,18 @@ void Game::draw() {
         buff_show = false;
         al_set_audio_stream_playing(BGM, false);
         // Draw ending scene
+        float score = game_timer->get_gt();
+        manage_file->write_file(score);
+
         al_draw_scaled_bitmap(endingScene, 0, 0, al_get_bitmap_width(endingScene),
                               al_get_bitmap_height(endingScene), 0, 0, GAME_WIDTH, GAME_HEIGHT, 0);
+        al_draw_textf(font, al_map_rgb(255, 255, 255), GAME_WIDTH / 2, GAME_HEIGHT / 2 - 150,
+                      ALLEGRO_ALIGN_CENTER, "Your time is: %.2f s", score);
         al_draw_textf(font, al_map_rgb(255, 255, 255), GAME_WIDTH / 2, GAME_HEIGHT / 2,
                       ALLEGRO_ALIGN_CENTER, "%s", "You win! Frank finally found his carer^_^");
         al_draw_textf(font, al_map_rgb(255, 255, 255), GAME_WIDTH / 2, GAME_HEIGHT / 2 + 150,
                       ALLEGRO_ALIGN_CENTER, "%s", "Press Z to menu.");
+
         return;
     }
 
@@ -367,7 +375,7 @@ void Game::draw() {
     }
 
     // Draw game timer
-    game_timer_draw();
+    game_timer->game_timer_draw();
 }
 
 void Game::destroy() {
@@ -377,7 +385,7 @@ void Game::destroy() {
     al_destroy_audio_stream(levelPassMusic);
     al_destroy_audio_stream(endingMusic);
 
-    game_timer_destroy();
+    game_timer->game_timer_destroy();
     buff_destroy();
 
     for (auto& enemy: enemies) {

@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1703171083 source:c:\users\user\desktop\demo\about.cpp
+1704730992 source:c:\users\user\desktop\demo\about.cpp
 	"about.h"
 
-1703171083 c:\users\user\desktop\demo\about.h
+1704730992 c:\users\user\desktop\demo\about.h
 	"constants.h"
 
-1704536760 c:\users\user\desktop\demo\constants.h
+1704730992 c:\users\user\desktop\demo\constants.h
 	<stdio.h>
 	<math.h>
 	<stdbool.h>
@@ -21,6 +21,7 @@
 	"algif5/algif.h"
 	<iostream>
 	<vector>
+	<sstream>
 
 1703168080 c:\users\user\desktop\final_project_package\final_project_package\allegro\include\allegro5\allegro.h
 	"allegro5/base.h"
@@ -326,67 +327,67 @@
 1703168080 c:\users\user\desktop\final_project_package\final_project_package\allegro\include\allegro5\allegro_color.h
 	"allegro5/allegro.h"
 
-1703171083 c:\users\user\desktop\demo\algif5\algif.h
+1704730993 c:\users\user\desktop\demo\algif5\algif.h
 	<allegro5/allegro5.h>
 
 1703168080 c:\users\user\desktop\final_project_package\final_project_package\allegro\include\allegro5\allegro5.h
 	"allegro.h"
 
-1703171083 source:c:\users\user\desktop\demo\algif5\algif.c
+1704730993 source:c:\users\user\desktop\demo\algif5\algif.c
 	"algif.h"
 	<allegro5/allegro_primitives.h>
 	<math.h>
 
-1703171083 source:c:\users\user\desktop\demo\algif5\bitmap.c
+1704730993 source:c:\users\user\desktop\demo\algif5\bitmap.c
 	"algif.h"
 
-1703171083 source:c:\users\user\desktop\demo\algif5\gif.c
+1704730993 source:c:\users\user\desktop\demo\algif5\gif.c
 	"algif.h"
 	<stdlib.h>
 	<string.h>
 
-1703171083 source:c:\users\user\desktop\demo\algif5\lzw.c
+1704730993 source:c:\users\user\desktop\demo\algif5\lzw.c
 	"algif.h"
 
-1704475822 source:c:\users\user\desktop\demo\background.cpp
+1704730992 source:c:\users\user\desktop\demo\background.cpp
 	"background.h"
 
-1704535072 c:\users\user\desktop\demo\background.h
+1704730992 c:\users\user\desktop\demo\background.h
 	"constants.h"
 
-1703171083 source:c:\users\user\desktop\demo\buff.cpp
+1704730992 source:c:\users\user\desktop\demo\buff.cpp
 	"buff.h"
 
-1703171083 c:\users\user\desktop\demo\buff.h
+1704730992 c:\users\user\desktop\demo\buff.h
 	"constants.h"
 
-1704522957 source:c:\users\user\desktop\demo\bullet.cpp
+1704730992 source:c:\users\user\desktop\demo\bullet.cpp
 	"bullet.h"
 
-1704522957 c:\users\user\desktop\demo\bullet.h
+1704730992 c:\users\user\desktop\demo\bullet.h
 	"constants.h"
 
-1703171083 source:c:\users\user\desktop\demo\constants.cpp
+1704730992 source:c:\users\user\desktop\demo\constants.cpp
 	"constants.h"
 
-1704562980 source:c:\users\user\desktop\demo\enemy.cpp
+1704730992 source:c:\users\user\desktop\demo\enemy.cpp
 	"enemy.h"
 
-1704561344 c:\users\user\desktop\demo\enemy.h
+1704730992 c:\users\user\desktop\demo\enemy.h
 	"bullet.h"
 	"constants.h"
 	"explosion.h"
 
-1704546617 c:\users\user\desktop\demo\explosion.h
+1704730992 c:\users\user\desktop\demo\explosion.h
 	"constants.h"
 
-1704546617 source:c:\users\user\desktop\demo\explosion.cpp
+1704730992 source:c:\users\user\desktop\demo\explosion.cpp
 	"explosion.h"
 
-1704563321 source:c:\users\user\desktop\demo\game.cpp
+1704730993 source:c:\users\user\desktop\demo\game.cpp
 	"game.h"
 
-1704535934 c:\users\user\desktop\demo\game.h
+1704730993 c:\users\user\desktop\demo\game.h
 	"constants.h"
 	"background.h"
 	"player.h"
@@ -396,28 +397,170 @@
 	"game_timer.h"
 	"buff.h"
 	"bullet.h"
+	"manage_file.h"
 
-1704475856 c:\users\user\desktop\demo\player.h
+1704730993 c:\users\user\desktop\demo\player.h
 	"bullet.h"
 	"constants.h"
 
-1703171083 c:\users\user\desktop\demo\menu.h
+1704730993 c:\users\user\desktop\demo\menu.h
 	"constants.h"
 	"about.h"
 
-1703171083 c:\users\user\desktop\demo\game_timer.h
+1704730993 c:\users\user\desktop\demo\game_timer.h
 	"constants.h"
+	"manage_file.h"
 
-1703172656 source:c:\users\user\desktop\demo\game_timer.cpp
+1704730993 source:c:\users\user\desktop\demo\game_timer.cpp
 	"game_timer.h"
 
-1704538188 source:c:\users\user\desktop\demo\main.cpp
+1704730993 source:c:\users\user\desktop\demo\main.cpp
 	"constants.h"
 	"game.h"
 
-1703173042 source:c:\users\user\desktop\demo\menu.cpp
+1704730993 source:c:\users\user\desktop\demo\menu.cpp
 	"menu.h"
+	"game_timer.h"
 
-1704562542 source:c:\users\user\desktop\demo\player.cpp
+1704731779 source:c:\users\user\desktop\demo\player.cpp
 	"player.h"
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\about.cpp
+	"about.h"
+
+1704563672 c:\users\user\desktop\test\demo_oop\about.h
+	"constants.h"
+
+1704723943 c:\users\user\desktop\test\demo_oop\constants.h
+	<stdio.h>
+	<math.h>
+	<stdbool.h>
+	<string.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_primitives.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_color.h>
+	"algif5/algif.h"
+	<iostream>
+	<vector>
+	<sstream>
+
+1704563672 c:\users\user\desktop\test\demo_oop\algif5\algif.h
+	<allegro5/allegro5.h>
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\algif5\algif.c
+	"algif.h"
+	<allegro5/allegro_primitives.h>
+	<math.h>
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\algif5\bitmap.c
+	"algif.h"
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\algif5\gif.c
+	"algif.h"
+	<stdlib.h>
+	<string.h>
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\algif5\lzw.c
+	"algif.h"
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\background.cpp
+	"background.h"
+
+1704563672 c:\users\user\desktop\test\demo_oop\background.h
+	"constants.h"
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\buff.cpp
+	"buff.h"
+
+1704563672 c:\users\user\desktop\test\demo_oop\buff.h
+	"constants.h"
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\bullet.cpp
+	"bullet.h"
+
+1704563672 c:\users\user\desktop\test\demo_oop\bullet.h
+	"constants.h"
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\constants.cpp
+	"constants.h"
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\enemy.cpp
+	"enemy.h"
+
+1704563672 c:\users\user\desktop\test\demo_oop\enemy.h
+	"bullet.h"
+	"constants.h"
+	"explosion.h"
+
+1704563672 c:\users\user\desktop\test\demo_oop\explosion.h
+	"constants.h"
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\explosion.cpp
+	"explosion.h"
+
+1704730520 source:c:\users\user\desktop\test\demo_oop\game.cpp
+	"game.h"
+
+1704727095 c:\users\user\desktop\test\demo_oop\game.h
+	"constants.h"
+	"background.h"
+	"player.h"
+	"enemy.h"
+	"explosion.h"
+	"menu.h"
+	"game_timer.h"
+	"buff.h"
+	"bullet.h"
+	"manage_file.h"
+
+1704563672 c:\users\user\desktop\test\demo_oop\player.h
+	"bullet.h"
+	"constants.h"
+
+1704563672 c:\users\user\desktop\test\demo_oop\menu.h
+	"constants.h"
+	"about.h"
+
+1704727688 c:\users\user\desktop\test\demo_oop\game_timer.h
+	"constants.h"
+	"manage_file.h"
+
+1704729877 source:c:\users\user\desktop\test\demo_oop\game_timer.cpp
+	"game_timer.h"
+
+1704726723 source:c:\users\user\desktop\test\demo_oop\main.cpp
+	"constants.h"
+	"game.h"
+
+1704729270 source:c:\users\user\desktop\test\demo_oop\menu.cpp
+	"menu.h"
+	"game_timer.h"
+
+1704563672 source:c:\users\user\desktop\test\demo_oop\player.cpp
+	"player.h"
+
+1704729877 source:c:\users\user\desktop\test\demo_oop\manage_file.cpp
+	"manage_file.h"
+
+1704729445 c:\users\user\desktop\test\demo_oop\manage_file.h
+	"constants.h"
+	<iostream>
+	<vector>
+	<sstream>
+	<set>
+
+1704730993 c:\users\user\desktop\demo\manage_file.h
+	"constants.h"
+	<iostream>
+	<vector>
+	<sstream>
+	<set>
+
+1704730993 source:c:\users\user\desktop\demo\manage_file.cpp
+	"manage_file.h"
 

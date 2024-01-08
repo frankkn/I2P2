@@ -1,24 +1,29 @@
 #include "game_timer.h"
 
-ALLEGRO_FONT *timer_font = NULL;
-float gt;
-
-void game_timer_init()
+Game_timer::Game_timer()
 {
     gt = 0.0f;
     timer_font = al_load_ttf_font("./font/pirulen.ttf",50,0);
     al_start_timer(game_timer);
+    manage_file = new Manage_file();
 }
 
-void game_timer_draw()
+void Game_timer::game_timer_draw()
 {
+    float highest_score = manage_file -> get_highest_score();
     gt += 1.0f / 60;
     //al_draw_filled_rectangle(0, 0, 250, 125, al_map_rgb(0,0,0));
-    al_draw_textf(timer_font, al_map_rgb(255, 255, 255), GAME_WIDTH-425, 40, 0, "Time: %.2f", gt);
+    al_draw_textf(timer_font, al_map_rgb(255, 255, 255), GAME_WIDTH-550, 40, 0, "Fastest: %.2f", highest_score);
+    al_draw_textf(timer_font, al_map_rgb(255, 255, 255), GAME_WIDTH-550, 120, 0, "Time: %.2f", gt);
 }
 
-void game_timer_destroy()
+void Game_timer::game_timer_destroy()
 {
     al_destroy_timer(game_timer);
     al_destroy_font(timer_font);
+}
+
+float Game_timer::get_gt()
+{
+    return gt;
 }

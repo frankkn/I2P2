@@ -1,5 +1,5 @@
 #include "menu.h"
-
+#include "game_timer.h"
 ALLEGRO_FONT *font = NULL;
 ALLEGRO_BITMAP *menu_background = NULL, *choose = NULL, *name = NULL;
 int choose_x, choose_y;

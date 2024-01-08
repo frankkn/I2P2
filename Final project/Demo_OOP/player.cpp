@@ -206,7 +206,7 @@ Bullet*** Player::getBullets() {
 */
 
 void Player::isHit() {
-    --hp;
+    if(--hp < 0) hp = 0;
     al_start_timer(recTimer);
 }
 

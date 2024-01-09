@@ -45,6 +45,7 @@ void Game::init() {
 }
 
 void Game::update() {
+
     if (gameOver || gamePass) {
         return;
     }
@@ -315,6 +316,7 @@ void Game::handleInput() {
 }
 
 void Game::draw() {
+
     if (gameOver) {
         buff_show = false;
         al_set_audio_stream_playing(BGM, false);
